@@ -1,18 +1,20 @@
-// const { data: characters } = useCharactersByIds(
-//   episode.characters.map(getCharacterIdFromUrl)
-// );
+import { useCharactersByIds } from "./api/queries";
+import { Episode } from "./api/service";
+import { getCharacterIdFromUrl } from "./api/util";
 
-import { AggregatedEpisode } from "./api/aggregation";
-
-export function Card({ episode }: { episode: AggregatedEpisode }) {
-  const { characters } = episode;
-
-  console.timeEnd("characters time");
+export function Card({ episode }: { episode: Episode }) {
+  const { data: characters } = useCharactersByIds(
+    episode.characters.map(getCharacterIdFromUrl)
+  );
 
   return (
     <div>
       <h3>{episode.episode}</h3>
-      <span>{characters.map((character) => character.name).join(",")}</span>
+      <span>
+        {characters
+          ? characters.map((character) => character.name).join(",")
+          : "Loading..."}
+      </span>
     </div>
   );
 }

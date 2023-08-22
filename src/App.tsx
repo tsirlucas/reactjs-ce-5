@@ -1,16 +1,12 @@
-import { useAggregatedEpisodes } from "./api/queries";
+import { useEpisodes } from "./api/queries";
 import { Card } from "./Card";
 import "./App.css";
 
 function App() {
-  const { data: episodes } = useAggregatedEpisodes();
+  const { data: episodes } = useEpisodes();
   if (!episodes) {
-    console.time("interactive time");
-    console.time("characters time");
     return <div>Loading...</div>;
   }
-
-  console.timeEnd("interactive time");
 
   return (
     <>
